@@ -1,0 +1,104 @@
+.table-container {
+      width: 100%;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+}
+    
+h2 {
+      text-align: left;
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #333;
+}
+    
+.user-table {
+      width: 100%;
+      border-collapse: collapse;
+}
+
+.user-table td {
+      height: 60px; /* Chiều cao tối thiểu để giữ đồng đều */
+}
+.user-table td:hover {
+      cursor: pointer;
+}
+
+.user-table th, .user-table td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+}
+.user-table tbody tr:last-child td {
+      border-bottom: 0; /* Xóa viền dưới của hàng cuối cùng */
+}
+    
+    
+.user-table th {
+      background: var(--gray-light);
+      font-weight: bold;
+}
+    
+.user-table tr:hover {
+      background: var(--gray-light);
+}
+    
+    /* Giữ chiều rộng nhỏ cho cột avatar */
+.user-table th:nth-child(2), .user-table td:nth-child(2) {
+      width: 120px; /* Đảm bảo avatar không chiếm quá nhiều không gian */
+      text-align: center;
+}
+
+/* Đảm bảo User Name và Email có khoảng rộng phù hợp */
+.user-table th:nth-child(3), .user-table td:nth-child(3) {
+      width: 250px;
+}
+
+.user-table th:nth-child(4), .user-table td:nth-child(4) {
+      width: 250px;
+}
+
+.user-table .checkbox {
+      width: 10px;
+}
+.user-table .actions {
+      width: 10px;
+}
+
+.user-info {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      height: 100%;
+}
+    
+/* Căn giữa avatar */
+.avatar-cell {
+      text-align: center;
+}
+
+.avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+}
+    
+/* Email chữ nhỏ hơn một chút */
+.email-cell {
+      font-size: 14px;
+      color: #666;
+}
+
+.email {
+      font-size: 12px;
+      color: #666;
+}
+    
+.action-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+}
+    

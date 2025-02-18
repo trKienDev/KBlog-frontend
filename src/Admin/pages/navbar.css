@@ -1,0 +1,46 @@
+.navbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+}
+
+.breadcumbs {
+      font-size: 14px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+}
+
+.breadcumb-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+}
+
+.breadcumb-item a {
+      text-decoration: none;
+      color: var(--Neon-Blue);
+      font-weight: bold;
+}
+
+.breadcumb-item a:hover {
+      color: var(--bright-blue);
+}
+
+.breadcrumb-icon {
+      color: #999;
+}
+
+.breadcumbs .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+}
+
+.user-name {
+      font-size: 15px;
+      color: #333;
+}

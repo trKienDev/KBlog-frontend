@@ -1,0 +1,78 @@
+.user-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+}
+    
+.user-header h2 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+}
+    
+.user-count-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;  /* Kích thước hình vuông */
+      height: 24px;
+      background-color: var(--Neon-Blue);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 4px; /* Bo góc nhẹ */
+      margin-left: 8px; /* Khoảng cách với chữ "All users" */
+}
+    
+.user-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+}
+
+.search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+}
+
+.search-icon {
+      position: absolute;
+      left: 10px;
+      color: #aaa;
+}
+    
+.search-input {
+      padding-left: 35px; /* Chừa khoảng trống cho icon */
+      height: 36px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      width: 200px;
+      font-family: 'Lexend';
+}
+
+.filter-btn, .add-user-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+}
+    
+.filter-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Tăng khoảng cách giữa icon và chữ */
+      background: var(--gray-light);
+      color: #333;
+      padding: 8px 15px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      cursor: pointer;
+}
+    

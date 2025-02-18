@@ -1,0 +1,18 @@
+.admin-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw; /* Đảm bảo chiếm đủ màn hình */
+}
+
+.admin-content {
+      width: calc(100% - 250px); /* Chắc chắn admin-content không bị tràn */
+      display: flex;
+      flex-direction: column;
+      padding: 20px 20px;
+}
+
+.main-content {
+      padding-top: 20px;
+      flex-grow: 1;
+      filter: brightness(1.0);
+}
