@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./UserTable.css";
+import { Eye, PencilSimple, TrashSimple } from "@phosphor-icons/react";
 
 interface User {
       id: number;
@@ -91,7 +92,19 @@ const UserTable: React.FC<UserTableProps> = ({ searchTerm }) => {
                                           <td>{user.lastActive}</td>
                                           <td>{user.dateAdded}</td>
                                           <td>
-                                                <button className="action-btn">⋮</button>
+                                                <div className="action-btn">
+                                                      <button className="btn-primary">
+                                                            <span className="icon-center">
+                                                                  <Eye size={20} color="white" weight="bold"/>
+                                                            </span>
+                                                      </button>
+                                                      <button className="btn-edit">
+                                                            <PencilSimple size={20} color="white" weight="bold"/>
+                                                      </button>
+                                                      <button className="btn-delete">
+                                                            <TrashSimple size={20} color="white" weight="bold"/>
+                                                      </button>
+                                                </div>
                                           </td>
                                     </tr>
                               ))}

@@ -64,6 +64,8 @@ h2 {
 }
 .user-table .actions {
       width: 10px;
+      text-align: center;
+      vertical-align: middle;
 }
 
 .user-info {
@@ -96,9 +98,13 @@ h2 {
 }
     
 .action-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
 }
     
+.user-table .btn-primary, 
+.user-table .btn-edit, 
+.user-table .btn-delete {
+      width: 60px;
+}

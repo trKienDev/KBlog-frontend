@@ -26,7 +26,6 @@ const UserPage: React.FC = () => {
                                     <Funnel size={16} weight="bold" />
                                     Filters
                               </button>
-                              <button className="btn-primary">+ Add User</button>
                         </div>
                   </div>
 

@@ -12,12 +12,19 @@
 
       /* Hex color */
       --bright-blue: #0096FF;
+      --bright-blue_hover: #0437F2;
       --Neon-Blue: #1F51FF;
-      --ultramarine: #0437F2;
+      --Neon-Blue_hover: #0047ab;
+      --blue-btn: #0969da;
+      --blue-btn_hover: #0864d1;
       --White: #ffffff;
       --gray-light: #f6f8fa;
-      --gray-light_hover: #eff2f5;
+      --gray-light_hover: #dde0e2;
       --border-btn: #d1d9e0;
+      --orange-neon: #ff5f1f;
+      --orange-neon_hover: #e35335;
+      --red-neon: #ff3131;
+      --red-neon_hover: #d22b2b;
 }
 
 a {

@@ -1,0 +1,56 @@
+/* Header Container */
+.header {
+      background-color: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+}
+
+.page-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+}
+/* Logo */
+.logo {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+}
+.logo-img {
+      height: 50px;
+      width: auto;
+      display: block;
+      position: relative;
+}
+
+/* Search Container */
+.search-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+      flex-grow: 1;
+      max-width: 600px;
+      margin: 0 20px;
+}
+
+.header .search-input {
+      width: 80%;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      outline: none;
+      height: auto !important;
+}
+
+.search-input:focus {
+      border-color: #0000ff; /* Màu xanh khi focus */
+}
+
+/* Auth Buttons */
+.auth-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+}
+

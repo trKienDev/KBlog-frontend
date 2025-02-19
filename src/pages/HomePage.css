@@ -1,0 +1,11 @@
+.homepage-container {
+      padding: 20px;
+      text-align: center;
+}
+
+.homepage-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: black;
+      margin-bottom: 20px;
+}
