@@ -1,0 +1,162 @@
+/* Container chính của form đăng ký */
+.register-email-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề form */
+.register-email-container h2 {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+}
+
+/* Định dạng form */
+.register-email-container form {
+      display: flex;
+      flex-direction: column;
+}
+
+/* Ô nhập liệu */
+.register-email-container input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+}
+
+.register-email-container .title {
+      text-align: center;
+      color: var(--Neon-Blue);
+}
+/* Ẩn input file mặc định */
+.hidden-file-input {
+      display: none;
+}
+
+/* Custom File Upload */
+.custom-file-upload {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 5px;
+}
+
+
+/* Nút Upload */
+.custom-file-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+}
+
+.custom-file-button:hover {
+      background-color: #0056b3;
+}
+
+/* Hiển thị tên file */
+.file-name {
+      font-size: 14px;
+      color: #777;
+}
+
+/* Hiệu ứng khi nhập vào input */
+.register-email-container input:focus {
+      border-color: #007bff;
+      outline: none;
+}
+.input-container input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      background: white;
+}
+.input-container label {
+      text-align: left;
+      display: flex;
+      gap: 5px;
+}
+
+.register-email-container .btn-primary {
+      margin-top: 10px;
+}
+
+.asterisk-icon {
+      margin-top: 3px;
+}
+
+/* Hiển thị ảnh xem trước */
+.image-preview {
+      margin-top: 10px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+}
+
+
+/* Container cho ảnh xem trước */
+.preview-container {
+      display: flex;
+      justify-content: left;
+      margin-top: 10px;
+}
+  
+/* Bọc ảnh và nút remove */
+.image-wrapper {
+      position: relative;
+      display: inline-block;
+}
+
+  
+/* Nút Xoá ảnh (❌) */
+.btn-remove {
+      position: absolute;
+      top: 10px;
+      right: 0px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      width: 20px;
+      height: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 3px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+  }
+  
+.btn-remove:hover {
+      background-color: #cc0000;
+}
+
+.error-message {
+      color: red; 
+      font-size: 14px; 
+      margin: unset;
+      margin-bottom: 10px; 
+      display: block; 
+}
+  

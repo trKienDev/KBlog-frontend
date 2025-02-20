@@ -1,17 +1,25 @@
 import React from "react";
 import "./RegisterPage.css"; // Import CSS file for styling
 import GoogleLogo from "../assets/google.svg";
-import EmailLogo from "../assets/gmail.svg";
+import MailLogo from "../assets/mail.svg";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage: React.FC = () => {
+      const navigate = useNavigate(); // hook để điều hướng
+
       const signUpOptions = [
             { name: "Google", icon: GoogleLogo, provider: "google" },
-            { name: "Email", icon: EmailLogo, provider: "email" },
+            { name: "Email", icon: MailLogo, provider: "email" },
       ];
 
       const handleSignUp = (provider: string) => {
             console.log(`Signing up with ${provider}`);
-            // Gọi API xử lý đăng ký tại đây
+            
+            if(provider === "email") {
+                  navigate("/register/email");
+            } else {
+                  console.log(`Processing ${provider} signup...`);
+            }
       };
 
       return (
@@ -21,14 +29,9 @@ const RegisterPage: React.FC = () => {
                         <p className="register-subtitle">Welcome to my blog</p>
 
                         {signUpOptions.map((option) => (
-                              <button key={option.provider}
-                                          className="register-button"
-                                          onClick={() => handleSignUp(option.provider)}>
-                                    {option.provider === "google" || option.provider === "email" ? (
-                                          <img src={option.icon} alt={`${option.name} Logo`} className="icon-img" />
-                                    ) : (
-                                          <span>{option.icon}</span>
-                                    )}
+                              <button key={option.provider} className="register-button"
+                                    onClick={() => handleSignUp(option.provider)}>
+                                    <img src={option.icon} alt={`${option.name} Logo`} className="icon-img" />
                                     Sign up with {option.name}
                               </button>
                         ))}
