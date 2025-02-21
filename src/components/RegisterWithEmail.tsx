@@ -186,7 +186,7 @@ const RegisterWithEmail: React.FC = () => {
                   const data = await response.json();
                   console.log("response: ", response);
                   if(response.ok) {
-                        alert(data.message);
+                        alert("Registration successful! Please check your email to verify your account.");
                   } else {
                         alert(data.error || "Error!");
                   }
