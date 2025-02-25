@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import './RegisterWithEmail.css';
 import { Asterisk } from "@phosphor-icons/react";
+import EmailVerificationPopup from "./EmailVerficationPopup";
+import { startEmailVerificationConnection } from "../utils/emailVerificationRegister";
 
 const RegisterWithEmail: React.FC = () => {
       type FormDataType = {
@@ -30,6 +32,9 @@ const RegisterWithEmail: React.FC = () => {
             profileImage: "",
             global: "",
       });
+
+      const [showPopup, setShowPopup] = useState(false);
+      const [isLoading, setIsLoading] = useState(false);
 
       const [previewImage, setPreviewImage] = useState<string | null>(null); 
       const fileInputRef = useRef<HTMLInputElement>(null); // Ref để trigger input file
@@ -118,9 +123,11 @@ const RegisterWithEmail: React.FC = () => {
 
       const handleSubmit = async (e: React.FormEvent) => {
             e.preventDefault();
+            setErrors({ ...errors, global: ""});
+            setIsLoading(true); // set loading when start sending request
 
-            const newErrors = { ...errors};
             let hasError = false;
+            const newErrors = { ...errors };
 
             // Kiểm tra nếu mất kết nối mạng
             if(!navigator.onLine) {
@@ -128,6 +135,7 @@ const RegisterWithEmail: React.FC = () => {
                         ...prev,
                         global: "Connection lost, please try again",
                   }));
+                  setIsLoading(false); // turn off loading when connection lost
                   return;
             }
 
@@ -163,6 +171,7 @@ const RegisterWithEmail: React.FC = () => {
 
             if(hasError) {
                   console.log("Error: ", newErrors);
+                  setIsLoading(false);
                   return;
             }
 
@@ -184,20 +193,28 @@ const RegisterWithEmail: React.FC = () => {
                         body: formDataToSend,
                   });
                   const data = await response.json();
-                  console.log("response: ", response);
+
                   if(response.ok) {
-                        alert("Registration successful! Please check your email to verify your account.");
+                        // Đăng ký success => Bắt đầu kết nối SignalR để chờ xác thực
+                        startEmailVerificationConnection(formData.email);
+                        setShowPopup(true);
                   } else {
-                        alert(data.error || "Error!");
+                        setErrors((prev) => ({
+                              ...prev,
+                              global: data.error || "Error!",
+                        }));
                   }
             } catch(error) {
                   console.error("Error: ", error);
-                  alert("Cannot connect API");
+                  setErrors((prev) => ({
+                        ...prev,
+                        global: "Cannot connect API",
+                  }));
+            } finally {
+                  setIsLoading(false);
             }
-
-            // Gửi API request tại đây
       };
-
+      
       return (
             <div className="register-email-container">
                   <h2 className="title">Create an account with Email</h2>
@@ -268,8 +285,16 @@ const RegisterWithEmail: React.FC = () => {
                               )}
                         </div>
                         {errors.global && <p className="error-message">{errors.global}</p>}
-                        <button type="submit" className="btn-primary">Sign up</button>
+                        <button type="submit" className="btn-primary" disabled={isLoading}>
+                              {isLoading ? (
+                                    <div className="spinner"></div>
+                              ) : (
+                                    "Sign up"
+                              )}
+                        </button>
                   </form>
+                  
+                  {showPopup && <EmailVerificationPopup email={formData.email} /> }
             </div>
       );
 };
