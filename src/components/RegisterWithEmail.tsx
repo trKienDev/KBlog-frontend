@@ -23,97 +23,42 @@ const RegisterWithEmail: React.FC = () => {
             confirmPassword: "",
       });
 
-      const [errors, setErrors] = useState({
-            name: "",
-            username: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            profileImage: "",
-            global: "",
-      });
-
+      const [errors, setErrors] = useState<Record<string, string>>({});
       const [showPopup, setShowPopup] = useState(false);
       const [isLoading, setIsLoading] = useState(false);
-      
       const [showPassword, setShowPassword] = useState(false);
       const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
       const [previewImage, setPreviewImage] = useState<string | null>(null); 
       const fileInputRef = useRef<HTMLInputElement>(null); // Ref để trigger input file
 
-      // Regex kiểm tra email hợp lệ
-      const validateEmail = (email: string) => {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
+      /** Helper function */
+      const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      
+      const validateForm = () => {
+            const newErrors: Record<string, string> = {};
+
+            if(!formData.name.trim()) newErrors.name = "Name is required";
+            if(!formData.username.trim()) newErrors.name = "Username is required";
+            if(!formData.email.trim()) newErrors.name = "Email is required";
+            else if(!validateEmail(formData.email)) newErrors.email = "Invalid email format";
+            if(!formData.password) newErrors.password = "Password is required";
+            if(formData.password !== formData.confirmPassword) {
+                  newErrors.confirmPassword = "Password do not match";
+            }
+            if(!formData.profileImage) newErrors.profileImage = "Profile image is required";
+
+            setErrors(newErrors);
+            return Object.keys(newErrors).length === 0;
       };
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const { name, value } = e.target;
-            setFormData((prev) => ({ ...prev, [name]: value }));
-
-            // Kiể tra lỗi ngay khi user đăng nhập
-            if(name === "email") {
-                  setErrors((prev) => ({
-                        ...prev,
-                        email: value.trim() === "" ? "This field is required"
-                                                                  : !validateEmail(value) ? "Invalid email format"
-                                                                  : "",
-                  }));
-            } else if (name === "confirmPassword") {
-                  setErrors((prev) => ({
-                        ...prev,
-                        confirmPassword: value.trim() === "" ? "This field is required"
-                                                      : value != formData.password ? "Password do not match"
-                                                      : "",
-                  }));
-            } else {
-                  setErrors((prev) => ({
-                        ...prev,
-                        [name]: value.trim() === "" ? "This field is required" : "",
-                  }));
-            }
+            setFormData({ ...formData, [e.target.name]: e.target.value });
       };
-
-      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            if (!e.target.files || e.target.files.length === 0)  {
-                  return; // Người dùng không chọn file, giữ nguyên trạng thái
-            }
-            const file = e.target.files[0];
-            const validExtensions = ["image/png", "image/jpg", "image/jpeg"];
-
-            const maxSize = 2 * 1024 * 1024; // 2MB
-            if (file.size > maxSize) {
-                  setErrors((prev) => ({
-                        ...prev,
-                        profileImage: "File size too large. Please upload a file smaller than 2MB",
-                  }));
-                  return;
-            }
-            if(!validExtensions.includes(file.type)) {
-                  setErrors((prev) => ({
-                        ...prev,
-                        profileImage: "Invalid file format. Please upload a PNG, JPG, or JPEG file",
-                  }));
-                  return;
-            }
-
-            setErrors((prev) => ({
-                  ...prev,
-                  profileImage: "", // xoá lỗi nếu file hợp lệ
-            }));
-
-            setFormData((prev) => ({ ...prev, profileImage: file}));
-            const imageURL = URL.createObjectURL(file);
-            setPreviewImage(imageURL);
-      };
-
       const handleBrowseClick = () => {
             if (fileInputRef.current) {
                   fileInputRef.current.click(); // Kích hoạt input file khi bấm nút
             }
       };
-
       const handleRemoveImage = () => {
             setFormData((prev) => ({ ...prev, profileImage: null }));
             setPreviewImage(null);
@@ -124,104 +69,70 @@ const RegisterWithEmail: React.FC = () => {
             }
       };
 
-      const handleSubmit = async (e: React.FormEvent) => {
-            e.preventDefault();
-            setErrors({ ...errors, global: ""});
-            setIsLoading(true); // set loading when start sending request
+      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const file = e.target.files?.[0];
+            if(!file) return;
 
-            let hasError = false;
-            const newErrors = { ...errors };
-
-            // Kiểm tra nếu mất kết nối mạng
-            if(!navigator.onLine) {
-                  setErrors((prev) => ({
-                        ...prev,
-                        global: "Connection lost, please try again",
-                  }));
-                  setIsLoading(false); // turn off loading when connection lost
+            const validExtensions = ["image/png", "image/jpg", "image/jpeg"];
+            if(!validExtensions.includes(file.type) || file.size > 2*1024*1024) {
+                  setErrors({ ...errors, profileImage: "Invalid file! Please PNG, JPG, or JPEG under 2MB"});
                   return;
             }
 
-            Object.entries(formData).forEach(([key, value]) => {
-                  if (!value) {
-                        hasError = true;
-                        setErrors((prev) => ({
-                              ...prev,
-                              [key as keyof FormDataType]: "This field is required",
-                        }));
-                  }
-            });
+            setErrors({ ...errors, profileImage: ""});
+            setFormData({ ...formData, profileImage: file });
+            setPreviewImage(URL.createObjectURL(file));
+      };
 
-            // Kiểm tra lại email trước khi submit
-            if (!validateEmail(formData.email)) {
-                  newErrors.email = "Invalid email format";
-                  hasError = true;
-            }
+      const handleSubmit = async (e: React.FormEvent) => {
+            e.preventDefault();
+            setIsLoading(true); 
+            setErrors({});
 
-            // Kiểm tra Password và Confirm Password
-            if(formData.password !== formData.confirmPassword) {
-                  newErrors.confirmPassword = "Password do not match";
-                  hasError = true;
-            }
-
-            // Kiểm tra nếu chưa tải ảnh đại diện
-            if (!formData.profileImage) {
-                  newErrors.profileImage = "Profile image is required";
-                  hasError = true;
-            }
-
-            setErrors(newErrors);
-
-            if(hasError) {
-                  console.log("Error: ", newErrors);
+            if(!navigator.onLine) {
+                  setErrors({ global: "Connection lost! Please try again"});
                   setIsLoading(false);
                   return;
             }
 
-            console.log("Form Data Submitted: ", formData);
-            
-            // Nếu muốn gửi ảnh lên server, cần tạo FormData
-            const formDataToSend = new FormData();
-            formDataToSend.append("name", formData.name);
-            formDataToSend.append("userName", formData.username);
-            formDataToSend.append("email", formData.email);
-            formDataToSend.append("password", formData.password);
-            if (formData.profileImage) {
-                  formDataToSend.append("profileImage", formData.profileImage);
+            if(!validateForm) {
+                  setIsLoading(false);
+                  return;
             }
-            
+
             try {
+                  const formDataToSend = new FormData();
+                  Object.entries(formData).forEach(([key, value]) => {
+                        if(value) {
+                              formDataToSend.append(key, value as string | Blob);
+                        }
+                  });
+
                   const response = await fetch("http://localhost:3642/api/user/register", {
                         method: "POST",
                         body: formDataToSend,
                   });
-                  const data = await response.json();
 
+                  const data = await response.json();
                   if(response.ok) {
-                        // Đăng ký success => Bắt đầu kết nối SignalR để chờ xác thực
                         startEmailVerificationConnection(formData.email);
                         setShowPopup(true);
                   } else {
-                        setErrors((prev) => ({
-                              ...prev,
-                              global: data.error || "Error!",
-                        }));
-                  }
-            } catch(error) {
-                  console.error("Error: ", error);
-                  setErrors((prev) => ({
-                        ...prev,
-                        global: "Cannot connect API",
-                  }));
+                        setErrors({ global: data.error || "Registration failed!"});
+                  } 
+            } catch (error) {
+                  console.log("error: ", error);
+                  setErrors({ global: "Cannot connect to API"});
             } finally {
                   setIsLoading(false);
-            }
+            } 
       };
       
       return (
             <div className="register-email-container">
                   <h2 className="title">Create an account with Email</h2>
                   <form onSubmit={handleSubmit}>
+                        
                         <div className="input-container">
                               <label className="label">
                                     Name
