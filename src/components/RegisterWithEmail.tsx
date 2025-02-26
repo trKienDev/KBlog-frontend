@@ -3,19 +3,11 @@ import './RegisterWithEmail.css';
 import { Asterisk, Eye, EyeSlash } from "@phosphor-icons/react";
 import EmailVerificationPopup from "./EmailVerficationPopup";
 import { startEmailVerificationConnection } from "../utils/emailVerificationRegister";
-import { apiService } from "../services/apiService";
+import { userService } from "../services/UserService";
+import { RegisterFormData } from "../types/RegisterFormData";
 
 const RegisterWithEmail: React.FC = () => {
-      type FormDataType = {
-            profileImage: File | null;
-            name: string;
-            username: string;
-            email: string;
-            password: string;
-            confirmPassword: string;
-      };
-
-      const [formData, setFormData] = useState<FormDataType>({
+      const [formData, setFormData] = useState<RegisterFormData>({
             profileImage: null,
             name: "",
             username: "",
@@ -38,15 +30,20 @@ const RegisterWithEmail: React.FC = () => {
       const validateForm = () => {
             const newErrors: Record<string, string> = {};
 
-            if(!formData.name.trim()) newErrors.name = "Name is required";
-            if(!formData.username.trim()) newErrors.name = "Username is required";
-            if(!formData.email.trim()) newErrors.name = "Email is required";
-            else if(!validateEmail(formData.email)) newErrors.email = "Invalid email format";
-            if(!formData.password) newErrors.password = "Password is required";
-            if(formData.password !== formData.confirmPassword) {
+            if(!formData.name.trim()) 
+                  newErrors.name = "Name is required";
+            if(!formData.username.trim()) 
+                  newErrors.name = "Username is required";
+            if(!formData.email.trim()) 
+                  newErrors.name = "Email is required";
+            else if(!validateEmail(formData.email)) 
+                  newErrors.email = "Invalid email format";
+            if(!formData.password) 
+                  newErrors.password = "Password is required";
+            if(formData.password !== formData.confirmPassword) 
                   newErrors.confirmPassword = "Password do not match";
-            }
-            if(!formData.profileImage) newErrors.profileImage = "Profile image is required";
+            if(!formData.profileImage) 
+                  newErrors.profileImage = "Profile image is required";
 
             setErrors(newErrors);
             return Object.keys(newErrors).length === 0;
@@ -102,14 +99,7 @@ const RegisterWithEmail: React.FC = () => {
             }
 
             try {
-                  const formDataToSend = new FormData();
-                  Object.entries(formData).forEach(([key, value]) => {
-                        if(value) {
-                              formDataToSend.append(key, value as string | Blob);
-                        }
-                  });
-
-                  await apiService.post("/user/register", formDataToSend);
+                  await userService.registerUser(formData);
                   startEmailVerificationConnection(formData.email);
                   setShowPopup(true);
             } catch (error) {

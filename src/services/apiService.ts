@@ -1,29 +1,25 @@
-class ApiService {
-	private baseURL: string;
+import { BaseApiService } from "./BaseApiService";
 
-	constructor(baseURL: string) {
-		this.baseURL = baseURL;
+class ApiService extends BaseApiService {
+	constructor() {
+		super("http://localhost:3642/api");
 	}
 
 	async post<T, B extends Record<string, unknown>>(route: string, body: FormData | B): Promise<T> {
-		try {
-			const response = await fetch(`${this.baseURL}${route}`, {
-				method: "POST",
-				body: body instanceof FormData ? body : JSON.stringify(body),
-				headers: body instanceof FormData ? undefined : { "Content-Type": "application/json" },
-			});
+		return this.request<T, B>("POST", route, body);
+	}
 
-			if(!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.error || "Request failed");
-			}
+	async get<T>(route: string): Promise<T> {
+		return this.request<T, never>("GET", route);
+	}
 
-			return response.json();
-		} catch (error) {
-			console.error("API Error: ", error);
-			throw error;
-		}
+	async put<T, B extends Record<string, unknown>>(route: string, body: B): Promise<T> {
+		return this.request<T, B>("PUT", route, body);
+	}
+
+	async delete<T>(route: string): Promise<T> {
+		return this.request<T, never>("DELETE", route);
 	}
 }
 
-export const apiService = new ApiService("http://localhost:3642/api");
+export const apiService = new ApiService();
