@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import './RegisterWithEmail.css';
-import { Asterisk } from "@phosphor-icons/react";
+import { Asterisk, Eye, EyeSlash } from "@phosphor-icons/react";
 import EmailVerificationPopup from "./EmailVerficationPopup";
 import { startEmailVerificationConnection } from "../utils/emailVerificationRegister";
 
@@ -35,6 +35,9 @@ const RegisterWithEmail: React.FC = () => {
 
       const [showPopup, setShowPopup] = useState(false);
       const [isLoading, setIsLoading] = useState(false);
+      
+      const [showPassword, setShowPassword] = useState(false);
+      const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
       const [previewImage, setPreviewImage] = useState<string | null>(null); 
       const fileInputRef = useRef<HTMLInputElement>(null); // Ref để trigger input file
@@ -246,14 +249,24 @@ const RegisterWithEmail: React.FC = () => {
                                     Password
                                     <Asterisk size={8} color="red" weight="bold" className="asterisk-icon"/>
                               </label>
-                              <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+                              <div className="password-input">
+                                    <input type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} required />
+                                    <button type="button" className="eye-button" onClick={() => setShowPassword(prev => !prev)}>
+                                          {showPassword ? <EyeSlash weight="bold" color="blue"/> : <Eye weight="bold" color="blue"/>}
+                                    </button>
+                              </div>
                         </div>
                         <div className="input-container">
                               <label className="label">
                                     Confirm password
                                     <Asterisk size={8} color="red" weight="bold" className="asterisk-icon"/>
                               </label>
-                              <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                              <div className="password-input"> 
+                                    <input type={showConfirmPassword ? "text" : "password"} name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                                    <button type="button" className="eye-button" onClick={() => setShowConfirmPassword(prev => !prev)}>
+                                          {showConfirmPassword ? <EyeSlash weight="bold" color="blue"/> : <Eye weight="bold" color="blue"/>}
+                                    </button>
+                              </div>
                               {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
                         </div>
                         <div className="input-container">

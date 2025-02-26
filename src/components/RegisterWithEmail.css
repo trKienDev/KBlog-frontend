@@ -1,3 +1,5 @@
+/* RegisterWithEmail.css */
+
 /* Container chính của form đăng ký */
 .register-email-container {
       max-width: 600px;
@@ -29,7 +31,7 @@
       font-size: 16px;
       border: 1px solid #ddd;
       border-radius: 5px;
-      margin-bottom: 10px;
+      padding-bottom: 10px;
       transition: all 0.3s ease;
       box-sizing: border-box;
 }
@@ -90,13 +92,14 @@
       background: white;
 }
 .input-container label {
+      padding-top: 20px;
       text-align: left;
       display: flex;
       gap: 5px;
 }
 
 .register-email-container .btn-primary {
-      margin-top: 10px;
+      margin-top: 20px;
 }
 
 .asterisk-icon {
@@ -179,4 +182,23 @@
   @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+  }
+
+  .password-input {
+      position: relative;
+  }
+
+  .password-input input {
+      width: 100%;
+      padding-right: 40px;
+  }
+
+  .password-input button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
   }

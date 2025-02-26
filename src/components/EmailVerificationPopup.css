@@ -1,3 +1,5 @@
+/* EmailVerificationPopup.css */
+
 .popup-container {
       position: fixed;
       top: 0;
@@ -26,5 +28,11 @@
       margin: 10px 0;
   }
   
+  .gif-container {
+    display: flex;
+    justify-content: center;
+  }
 
-  
+  .email-verification_gif {
+    width: 200px;
+  }

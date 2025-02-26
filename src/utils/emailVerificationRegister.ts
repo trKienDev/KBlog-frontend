@@ -13,7 +13,7 @@ export async function startEmailVerificationConnection(email: string) {
       connection.on("EmailVerified", (verifiedEmail: string) => {
             console.log("Received EmailVerified event: ", verifiedEmail);
             if(verifiedEmail) {
-                  window.location.href = `http://localhost:5173/email-verified?email=${verifiedEmail}`;
+                  window.location.href = `http://localhost:5173/login`;
             }
       });
 

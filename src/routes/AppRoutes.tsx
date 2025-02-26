@@ -4,7 +4,7 @@ import AdminPage from "../Admin/pages/AdminPage";
 import UserPage from "../Admin/pages/UserPage";
 import RegisterPage from "../pages/RegisterPage";
 import RegisterWithEmail from "../components/RegisterWithEmail";
-import EmailVerified from "../pages/EmailVerified";
+import EmailVerificationSuccess from "../pages/EmailVerificationSuccess";
 
 const AppRoutes: React.FC = () => {
       return (
@@ -15,7 +15,7 @@ const AppRoutes: React.FC = () => {
                   </Route>
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/register/email" element={<RegisterWithEmail />} /> 
-                  <Route path="/email-verified" element={<EmailVerified />}/>
+                  <Route path="/email-verified" element={<EmailVerificationSuccess />} />
             </Routes>
       );
 };

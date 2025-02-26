@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const RegisterPage: React.FC = () => {
       const navigate = useNavigate(); // hook để điều hướng
-
+ 
       const signUpOptions = [
             { name: "Google", icon: GoogleLogo, provider: "google" },
             { name: "Email", icon: MailLogo, provider: "email" },
@@ -26,8 +26,12 @@ const RegisterPage: React.FC = () => {
             <div className="register-container">
                   <div className="register-box">
                         <h1 className="register-title">Join KBlog</h1>
-                        <p className="register-subtitle">Welcome to my blog</p>
-
+                        <div className="gif-container">
+                              <video className="gif" autoPlay loop muted>
+                                    <source src="/src/assets/welcome.webm" type="video/webm" />
+                                    Trình duyệt của bạn không hỗ trợ video.
+                              </video>
+                        </div>
                         {signUpOptions.map((option) => (
                               <button key={option.provider} className="register-button"
                                     onClick={() => handleSignUp(option.provider)}>
