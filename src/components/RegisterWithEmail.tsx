@@ -3,6 +3,7 @@ import './RegisterWithEmail.css';
 import { Asterisk, Eye, EyeSlash } from "@phosphor-icons/react";
 import EmailVerificationPopup from "./EmailVerficationPopup";
 import { startEmailVerificationConnection } from "../utils/emailVerificationRegister";
+import { apiService } from "../services/apiService";
 
 const RegisterWithEmail: React.FC = () => {
       type FormDataType = {
@@ -108,18 +109,9 @@ const RegisterWithEmail: React.FC = () => {
                         }
                   });
 
-                  const response = await fetch("http://localhost:3642/api/user/register", {
-                        method: "POST",
-                        body: formDataToSend,
-                  });
-
-                  const data = await response.json();
-                  if(response.ok) {
-                        startEmailVerificationConnection(formData.email);
-                        setShowPopup(true);
-                  } else {
-                        setErrors({ global: data.error || "Registration failed!"});
-                  } 
+                  await apiService.post("/user/register", formDataToSend);
+                  startEmailVerificationConnection(formData.email);
+                  setShowPopup(true);
             } catch (error) {
                   console.log("error: ", error);
                   setErrors({ global: "Cannot connect to API"});

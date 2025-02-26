@@ -53,6 +53,9 @@
       margin-top: 5px;
 }
 
+.custom-file-upload button {
+      flex-shrink: 0;
+}
 
 /* Nút Upload */
 .custom-file-button {
@@ -75,6 +78,10 @@
 .file-name {
       font-size: 14px;
       color: #777;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 }
 
 /* Hiệu ứng khi nhập vào input */
