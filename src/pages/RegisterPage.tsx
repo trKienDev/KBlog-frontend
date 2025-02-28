@@ -42,7 +42,7 @@ const RegisterPage: React.FC = () => {
 
                         <p className="register-login">
                               Already have an account? 
-                              <a href="#" className="register-link">   Log in.</a>
+                              <a href="/login" className="register-link">   Log in.</a>
                         </p>
                   </div>
             </div>
