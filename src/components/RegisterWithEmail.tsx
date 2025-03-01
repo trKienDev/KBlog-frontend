@@ -41,7 +41,7 @@ const RegisterWithEmail: React.FC = () => {
             if(!formData.password) 
                   newErrors.password = "Password is required";
             if(formData.password !== formData.confirmPassword) 
-                  newErrors.confirmPassword = "Password do not match";
+                  newErrors.confirmPassword = "Password does not match";
             if(!formData.profileImage) 
                   newErrors.profileImage = "Profile image is required";
 
@@ -52,6 +52,7 @@ const RegisterWithEmail: React.FC = () => {
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, [e.target.name]: e.target.value });
       };
+      
       const handleBrowseClick = () => {
             if (fileInputRef.current) {
                   fileInputRef.current.click(); // Kích hoạt input file khi bấm nút
@@ -93,7 +94,7 @@ const RegisterWithEmail: React.FC = () => {
                   return;
             }
 
-            if(!validateForm) {
+            if(!validateForm()) {
                   setIsLoading(false);
                   return;
             }
@@ -114,7 +115,6 @@ const RegisterWithEmail: React.FC = () => {
             <div className="register-email-container">
                   <h2 className="title">Create an account with Email</h2>
                   <form onSubmit={handleSubmit}>
-                        
                         <div className="input-container">
                               <label className="label">
                                     Name

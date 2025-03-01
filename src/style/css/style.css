@@ -48,3 +48,11 @@
       margin: auto;
       padding: 0px 16px;
 }
+
+.error-message {
+      color: red; 
+      font-size: 14px; 
+      margin: unset;
+      margin-bottom: 10px; 
+      display: block; 
+}

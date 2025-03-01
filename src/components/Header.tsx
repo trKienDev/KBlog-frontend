@@ -26,8 +26,8 @@ const Header: React.FC = () => {
                         </div>
 
                         <div className="auth-buttons">
-                              <button className="btn-secondary">Log in</button>
-                              <button onClick={handleCreateAccount} className="btn-primary">
+                              <button className="btn-secondary" onClick={() => navigate("/login")}>Log in</button>
+                              <button className="btn-primary" onClick={handleCreateAccount}>
                                     Create account
                               </button>
                         </div>

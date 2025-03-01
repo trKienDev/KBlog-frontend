@@ -1,3 +1,4 @@
+import { LoginFormData } from "../types/LoginFormData";
 import { RegisterFormData } from "../types/RegisterFormData";
 import { apiService } from "./apiService";
 
@@ -12,6 +13,15 @@ class UserService {
 
                 return apiService.post("/user/register", formDataToSend);
         }       
+
+        async LoginUser(data: LoginFormData) {
+                const jsonToSend = {
+                        email: data.email,
+                        password: data.password,
+                };
+
+                return apiService.post("/user/login", jsonToSend);
+        }
 }
 
 export const userService = new UserService();

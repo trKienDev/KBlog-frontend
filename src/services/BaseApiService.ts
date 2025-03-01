@@ -15,13 +15,15 @@ export class BaseApiService {
 
                         if(!response.ok) {
                                 const errorData = await response.json();
-                                throw new Error(errorData.error || "Request failed");
+                                console.log("errorData: ", errorData);
+                                throw new Error(errorData);
                         }
 
                         return response.json();
                 } catch (error) {
-                        console.error("API error: ", error);
-                        throw error;
+                        const err = error as Error;
+                        console.error("API error: ", err);
+                        throw err;
                 }
         }
 }
